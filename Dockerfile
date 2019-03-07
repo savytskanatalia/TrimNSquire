@@ -2,6 +2,7 @@ FROM	continuumio/miniconda3
 
 RUN	apt-get update && apt-get install -y --no-install-recommends \
 		build-essential\
+		gzip\
 		less\
 		wget\
 		unzip\
@@ -29,6 +30,8 @@ RUN	cd SQuIRE \
 RUN	cd SQuIRE \
 	git pull
 ENV PATH /SQuIRE/squire:$PATH
+
+
 
 
 
