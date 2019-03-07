@@ -9,3 +9,5 @@ Allows to list the sample names from paired-end reads, trim them for adapters, p
 WARNING: cleans up both trimmed and untrimmed fastqs to save up space!
 
 
+##UPDATE/DOWNLOAD SIX MODULE
+pip install six
