@@ -1,4 +1,12 @@
 # -*- coding: utf-8 -*-
+"""
+Created on Wed Mar  6 12:41:43 2019
+
+@author: savytska
+"""
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from __future__ import print_function,division
 
@@ -45,8 +53,8 @@ print(mynewlist)
 for i in range(len(mynewlist)):
 	subprocess.call("skewer -x truseq_adapter_R1.fa -y truseq_adapter_R2.fa -m pe -t 30 raw_data/"+mynewlist[i]+"_1.fastq.gz raw_data/"+mynewlist[i]+"_2.fastq.gz", shell=True)
 	subprocess.call("rm raw_data/"+mynewlist[i]+"_*.fastq.gz", shell=True)
-	subprocess.call("python Map_ed_f.py -r1 raw_data/"+mynewlist[i]+"_1-trimmed-pair1.fastq -r2 raw_data/"+mynewlist[i]+"_1-trimmed-pair2.fastq -o /data/squire_map_full/ -f /data -r 202 -g /data/hg38_refGene.gtf -v", shell=True)
-	subprocess.call("rm raw_data/"+mynewlist[i]+"_1-trimmed-pair*.fastq", shell=True)
+	subprocess.call("python Map_ed_f.py -r1 raw_data/"+mynewlist[i]+"_1.fastq-trimmed-pair1.fastq -r2 raw_data/"+mynewlist[i]+"_1.fastq-trimmed-pair2.fastq -o /data/squire_map_full/ -f /data -r 101 -g /data/gencode.v29.annotation.gtf -v", shell=True)
+	subprocess.call("rm raw_data/"+mynewlist[i]+"_1.fastq-trimmed-pair*.fastq", shell=True)
 
 
 
