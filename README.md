@@ -3,8 +3,13 @@ Trim your fastqs and SQuIRE them up!
 
 This Dockerfile sets a container up to trim the reads with Skewer ( https://github.com/relipmoc/skewer ) and quantify retrotransposons&/genes with SQuIRE ( https://github.com/wyang17/SQuIRE ).
 
-As of now, it is being tested on SQuIRE Map. 
-Allows to list the sample names from paired-end reads, trim them for adapters, pass on to SQuIRE mapping function.
+It allows you trimming your fastqs, aligning and quantifying them in one container:)
+The script requeires one argument to run - the number of threads.
+To run it:
+python mainscript.py $N-of-threads$
+
+This script, as well as the SQuIRE scripts, are written in python 2.7.
+
 
 WARNING: cleans up both trimmed and untrimmed fastqs to save up space!
 
