@@ -13,6 +13,9 @@ from __future__ import print_function,division
 import os
 import subprocess
 import re
+import sys
+
+threads=sys.argv[1]
 
 print("Reading in your stupid stuff")
 
@@ -51,10 +54,13 @@ for i in range(len(myfavlist)):
 print(mynewlist)
 
 for i in range(len(mynewlist)):
-	subprocess.call("skewer -x truseq_adapter_R1.fa -y truseq_adapter_R2.fa -m pe -t 30 raw_data/"+mynewlist[i]+"_1.fastq.gz raw_data/"+mynewlist[i]+"_2.fastq.gz", shell=True)
-	subprocess.call("rm raw_data/"+mynewlist[i]+"_*.fastq.gz", shell=True)
-	subprocess.call("python Map_ed_f.py -r1 raw_data/"+mynewlist[i]+"_1.fastq-trimmed-pair1.fastq -r2 raw_data/"+mynewlist[i]+"_1.fastq-trimmed-pair2.fastq -o /data/squire_map_full/ -f /data -r 101 -g /data/gencode.v29.annotation.gtf -v", shell=True)
-	subprocess.call("rm raw_data/"+mynewlist[i]+"_1.fastq-trimmed-pair*.fastq", shell=True)
+	subprocess.call("gzip -d raw_data/"+mynewlist[i]+"_*.fastq.gz", shell=True)
+	subprocess.call("skewer -x truseq_adapter_R1.fa -y truseq_adapter_R2.fa -m pe -t "+threads+" raw_data/"+mynewlist[i]+"_1.fastq raw_data/"+mynewlist[i]+"_2.fastq", shell=True)
+	subprocess.call("rm raw_data/"+mynewlist[i]+"_1.fastq raw_data/"+mynewlist[i]+"_2.fastq", shell=True)
+	subprocess.call("python Map_ed_f.py -r1 raw_data/"+mynewlist[i]+"_1-trimmed-pair1.fastq -r2 raw_data/"+mynewlist[i]+"_1-trimmed-pair2.fastq -o /data/squire_map_full/ -f /data -r 101 -g /data/gencode.v29.annotation.gtf -p "+threads+"  -v", shell=True)
+	subprocess.call("rm raw_data/"+mynewlist[i]+"_1-trimmed-pair1.fastq raw_data/"+mynewlist[i]+"_1-trimmed-pair2.fastq", shell=True)
+	subprocess.call("python Count_ed.py -m squire_map_full/ -c /data -o squire_count_full/ -t squire_temp_full/ -r 202 -n "+mynewlist[i]+".fastq-trimmed-pair1  -f /data -p  "+threads+"  -s 1 -e 10 -v", shell=True)
+
 
 
 
